@@ -44,7 +44,8 @@ update_config(cfg, args)
 
 model = get_model('vgg19')     
 model.load_state_dict(torch.load(args.weight))
-model = torch.nn.DataParallel(model).cuda()
+if torch.cuda.is_available():
+    model = torch.nn.DataParallel(model).cuda()
 model.float()
 model.eval()
 
